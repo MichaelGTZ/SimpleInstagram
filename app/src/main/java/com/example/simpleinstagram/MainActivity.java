@@ -19,7 +19,10 @@ import android.widget.Toast;
 
 import com.parse.FindCallback;
 import com.parse.ParseException;
+import com.parse.ParseFile;
 import com.parse.ParseQuery;
+import com.parse.ParseUser;
+import com.parse.SaveCallback;
 
 import java.io.File;
 import java.util.List;
@@ -33,6 +36,11 @@ public class MainActivity extends AppCompatActivity {
     private ImageView ivPreview;
     private Button btnPost;
 
+    public final String APP_TAG = "MyCustomApp";
+    public final static int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 1034;
+    public String photoFileName = "photo_%d.jpg";
+    File photoFile;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,21 +53,51 @@ public class MainActivity extends AppCompatActivity {
         btnCaptureImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                onLaunchCamera(view);
+                launchCamera(view);
             }
         });
 
         btnPost = findViewById(R.id.btnPost);
 
-        queryPosts();
+        //queryPosts();
+        btnPost.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String description = etDescription.getText().toString();
+                if (description.isEmpty()) {
+                    Toast.makeText(MainActivity.this, "Description cannot be empty", Toast.LENGTH_SHORT);
+                    return;
+                }
+                if (photoFile == null || ivPreview.getDrawable() == null) {
+                    Toast.makeText(MainActivity.this, "There is no image", Toast.LENGTH_SHORT);
+                    return;
+                }
+                ParseUser currentUser = ParseUser.getCurrentUser();
+                savePost(description, currentUser, photoFile);
+            }
+        });
     }
 
-    public final String APP_TAG = "MyCustomApp";
-    public final static int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 1034;
-    public String photoFileName = "photo_%d.jpg";
-    File photoFile;
+    private void savePost(String description, ParseUser currentUser, File photoFile) {
+        Post post = new Post();
+        post.setDescription(description);
+        post.setUser(currentUser);
+        post.setImage(new ParseFile(photoFile));
+        post.saveInBackground(new SaveCallback() {
+            @Override
+            public void done(ParseException e) {
+                if (e != null) {
+                    Log.e(TAG, "Error while saving", e);
+                    Toast.makeText(MainActivity.this, "Error while saving", Toast.LENGTH_SHORT);
+                }
+                Log.i(TAG, "Post save was successful");
+                etDescription.setText("");
+                ivPreview.setImageResource(0);
+            }
+        });
+    }
 
-    public void onLaunchCamera(View view) {
+    public void launchCamera(View view) {
         // create Intent to take a picture and return control to the calling application
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         // Create a File reference for future access using current timestamp
@@ -75,7 +113,7 @@ public class MainActivity extends AppCompatActivity {
         // So as long as the result is not null, it's safe to use the intent.
         if (intent.resolveActivity(getPackageManager()) != null) {
             // Start the image capture intent to take photo
-            startActivityForResult(intent, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE); //Calls onActivityResult()
+            startActivityForResult(intent, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE); // Calls onActivityResult() upon completion
         }
     }
 
@@ -87,14 +125,12 @@ public class MainActivity extends AppCompatActivity {
         File mediaStorageDir = new File(getExternalFilesDir(Environment.DIRECTORY_PICTURES), APP_TAG);
 
         // Create the storage directory if it does not exist
-        if (!mediaStorageDir.exists() && !mediaStorageDir.mkdirs()){
+        if (!mediaStorageDir.exists() && !mediaStorageDir.mkdirs()) {
             Log.d(APP_TAG, "failed to create directory");
         }
 
         // Return the file target for the photo based on filename
-        File file = new File(mediaStorageDir.getPath() + File.separator + fileName);
-
-        return file;
+        return new File(mediaStorageDir.getPath() + File.separator + fileName);
     }
 
     @Override
