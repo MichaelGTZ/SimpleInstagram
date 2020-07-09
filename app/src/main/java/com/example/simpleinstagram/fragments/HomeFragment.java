@@ -28,8 +28,8 @@ public class HomeFragment extends Fragment {
     public static final String TAG = "HomeFragment";
 
     private RecyclerView rvPosts;
-    private PostsAdapter adapter;
-    private List<Post> allPosts;
+    protected PostsAdapter adapter;
+    protected List<Post> allPosts;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -56,12 +56,16 @@ public class HomeFragment extends Fragment {
         queryPosts();
     }
 
-    private void queryPosts() {
+    protected void queryPosts() {
         // Specify which class to query
         ParseQuery<Post> query = ParseQuery.getQuery(Post.class);
         // Include the user of the post in the query result
         query.include(Post.KEY_USER);
-        // Specify the object id
+        // Limit the number of posts to retrieve
+        query.setLimit(20);
+        // Show most recent posts first
+        query.addDescendingOrder(Post.KEY_CREATED_AT);
+
         query.findInBackground(new FindCallback<Post>() {
             @Override
             public void done(List<Post> posts, ParseException e) {
