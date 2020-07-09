@@ -1,7 +1,9 @@
 package com.example.simpleinstagram;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.FileProvider;
+import androidx.fragment.app.Fragment;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -11,12 +13,14 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseFile;
@@ -38,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
     private Button btnCaptureImage;
     private ImageView ivPreview;
     private Button btnPost;
+    private BottomNavigationView bottomNavigationView;
 
     public final String APP_TAG = "MyCustomApp";
     public final static int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 1034;
@@ -61,7 +66,6 @@ public class MainActivity extends AppCompatActivity {
         });
 
         btnPost = findViewById(R.id.btnPost);
-
         //queryPosts();
         btnPost.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -81,6 +85,25 @@ public class MainActivity extends AppCompatActivity {
                 } catch (IOException e) {
                     Log.e(TAG, "Save Post failed from button click listener", e);
                 }
+            }
+        });
+
+        bottomNavigationView = findViewById(R.id.bottom_navigation);
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+                Fragment fragment;
+                switch (menuItem.getItemId()) {
+                    case R.id.action_home:
+                        break;
+                    case R.id.action_compose:
+                        break;
+                    case R.id.action_profile:
+                        break;
+                    default:
+                        break;
+                }
+                return false;
             }
         });
     }
