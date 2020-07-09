@@ -129,7 +129,6 @@ public class ComposeFragment extends Fragment {
         }
     }
 
-
     private void savePost(String description, ParseUser currentUser, File photoFile) throws IOException {
         Post post = new Post();
         post.setDescription(description);

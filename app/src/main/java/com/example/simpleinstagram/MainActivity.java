@@ -3,16 +3,21 @@ package com.example.simpleinstagram;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import android.os.Bundle;
 import android.view.MenuItem;
 
+import com.example.simpleinstagram.fragments.ComposeFragment;
+import com.example.simpleinstagram.fragments.HomeFragment;
+import com.example.simpleinstagram.fragments.ProfileFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
 
     public static final String TAG = "MainActivity";
 
+    final FragmentManager fragmentManager = getSupportFragmentManager();
     private BottomNavigationView bottomNavigationView;
 
     @Override
@@ -27,16 +32,20 @@ public class MainActivity extends AppCompatActivity {
                 Fragment fragment;
                 switch (menuItem.getItemId()) {
                     case R.id.action_home:
+                        fragment = new HomeFragment();
                         break;
                     case R.id.action_compose:
+                        fragment = new ComposeFragment();
                         break;
-                    case R.id.action_profile:
-                        break;
-                    default:
+                    default: // profile fragment
+                        fragment = new ProfileFragment();
                         break;
                 }
-                return false;
+                fragmentManager.beginTransaction().replace(R.id.flContainer, fragment).commit();
+                return true;
             }
         });
+        // Set default selection
+        bottomNavigationView.setSelectedItemId(R.id.action_home);
     }
 }

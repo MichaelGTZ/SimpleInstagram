@@ -10,12 +10,12 @@
         app:showAsAction="always" />
     <item
         android:id="@+id/action_compose"
-        android:icon="@drawable/instagram_new_post_outline_24"
+        android:icon="@drawable/selector_compose"
         android:title="Compose"
         app:showAsAction="always" />
     <item
         android:id="@+id/action_profile"
-        android:icon="@drawable/instagram_user_outline_24"
+        android:icon="@drawable/selector_profile"
         android:title="Profile"
         app:showAsAction="always" />
 
