@@ -2,6 +2,7 @@ package com.example.simpleinstagram;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -13,19 +14,19 @@ import android.widget.Toast;
 import com.parse.LogInCallback;
 import com.parse.ParseException;
 import com.parse.ParseUser;
+import com.parse.SignUpCallback;
 
-public class LoginActivity extends AppCompatActivity {
+public class SignupActivity extends AppCompatActivity {
 
-    public static final String TAG = "LoginActivity";
+    public static final String TAG = "Signup Activity";
     private EditText etUsername;
     private EditText etPassword;
     private Button btnLogin;
-    private Button btnSignup;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.activity_signup);
 
         // If someone is logged in already, don't show login screen and go directly to home screen
         if (ParseUser.getCurrentUser() != null) {
@@ -42,17 +43,28 @@ public class LoginActivity extends AppCompatActivity {
                 Log.i(TAG, "onClick login button");
                 String username = etUsername.getText().toString();
                 String password = etPassword.getText().toString();
-                loginUser(username, password);
+                SignupUser(username, password);
             }
         });
+    }
 
-        btnSignup = findViewById(R.id.btnSignup);
-        btnSignup.setOnClickListener(new View.OnClickListener() {
+    private void SignupUser(final String username, final String password) {
+        // Create the ParseUser
+        ParseUser user = new ParseUser();
+        // Set core properties
+        user.setUsername(username);
+        user.setPassword(password);
+        // Invoke signUpInBackground
+        Log.i(TAG, "SignupUser: Attempting to sign up user: " + username);
+        user.signUpInBackground(new SignUpCallback() {
             @Override
-            public void onClick(View view) {
-                Log.i(TAG, "onClick sign up button");
-                Intent intent = new Intent(LoginActivity.this, SignupActivity.class);
-                startActivity(intent);
+            public void done(ParseException e) {
+                if (e != null) {
+                    Log.e(TAG, "Issue with sign up", e);
+                    return;
+                } else {
+                    loginUser(username, password);
+                }
             }
         });
     }
@@ -65,11 +77,9 @@ public class LoginActivity extends AppCompatActivity {
                 if (e != null) {
                     // TODO: Better error handling to let user know the problem
                     Log.e(TAG, "Issue with login", e);
-                    Toast.makeText(LoginActivity.this, "Issue with Login", Toast.LENGTH_SHORT);
                     return;
                 } else {
                     goMainActivity();
-                    Toast.makeText(LoginActivity.this, "Login Success", Toast.LENGTH_SHORT);
                 }
             }
         });

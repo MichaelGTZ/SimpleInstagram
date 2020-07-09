@@ -28,8 +28,8 @@ public class HomeFragment extends Fragment {
     public static final String TAG = "HomeFragment";
 
     private RecyclerView rvPosts;
-    protected PostsAdapter adapter;
-    protected List<Post> allPosts;
+    private PostsAdapter adapter;
+    private List<Post> allPosts;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -56,7 +56,7 @@ public class HomeFragment extends Fragment {
         queryPosts();
     }
 
-    protected void queryPosts() {
+    private void queryPosts() {
         // Specify which class to query
         ParseQuery<Post> query = ParseQuery.getQuery(Post.class);
         // Include the user of the post in the query result
