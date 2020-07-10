@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.simpleinstagram.EndlessRecyclerViewScrollListener;
 import com.example.simpleinstagram.Post;
 import com.example.simpleinstagram.PostsAdapter;
 import com.example.simpleinstagram.R;
@@ -32,6 +33,7 @@ public class HomeFragment extends Fragment {
     private PostsAdapter adapter;
     private List<Post> allPosts;
     private SwipeRefreshLayout swipeContainer;
+    private EndlessRecyclerViewScrollListener scrollListener;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -53,7 +55,8 @@ public class HomeFragment extends Fragment {
         allPosts = new ArrayList<>();
         adapter = new PostsAdapter(getContext(), allPosts);
         rvPosts.setAdapter(adapter);
-        rvPosts.setLayoutManager(new LinearLayoutManager(getContext()));
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
+        rvPosts.setLayoutManager(linearLayoutManager);
 
         // Lookup the swipe container view
         swipeContainer = (SwipeRefreshLayout) view.findViewById(R.id.swipeContainer);
@@ -68,7 +71,43 @@ public class HomeFragment extends Fragment {
             }
         });
 
+        scrollListener = new EndlessRecyclerViewScrollListener(linearLayoutManager) {
+            @Override
+            public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
+                // Triggered only when new data needs to be appended to the list
+                loadMorePosts();
+            }
+        };
+        rvPosts.addOnScrollListener(scrollListener);
+
         queryPosts();
+    }
+
+    private void loadMorePosts() {
+        // Specify which class to query
+        ParseQuery<Post> query = ParseQuery.getQuery(Post.class);
+        // Include the user of the post in the query result
+        query.include(Post.KEY_USER);
+        // Limit the number of posts to retrieve
+        query.setLimit(1);
+        // Show most recent posts first
+        query.addDescendingOrder(Post.KEY_CREATED_AT);
+        // Specify to retrieve posts older than the currently oldest post
+        query.whereLessThan(Post.KEY_CREATED_AT, allPosts.get(allPosts.size() - 1).getCreatedAt());
+
+        query.findInBackground(new FindCallback<Post>() {
+            @Override
+            public void done(List<Post> morePosts, ParseException e) {
+                if (e != null) {
+                    Log.e(TAG, "Issue with getting more posts", e);
+                }
+                for (Post post : morePosts) {
+                    Log.i(TAG, "MorePost: " + post.getDescription() + ", username: " + post.getUser().getUsername());
+                }
+                allPosts.addAll(morePosts);
+                adapter.notifyDataSetChanged();
+            }
+        });
     }
 
     private void queryPosts() {
@@ -77,7 +116,7 @@ public class HomeFragment extends Fragment {
         // Include the user of the post in the query result
         query.include(Post.KEY_USER);
         // Limit the number of posts to retrieve
-        query.setLimit(20);
+        query.setLimit(2);
         // Show most recent posts first
         query.addDescendingOrder(Post.KEY_CREATED_AT);
 
