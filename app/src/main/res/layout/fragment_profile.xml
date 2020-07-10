@@ -2,26 +2,130 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <ImageView
+        android:id="@+id/ivprofilePic"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_margin="30dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/instagram_user_filled_24"
+        tools:srcCompat="@tools:sample/avatars" />
+
+    <TextView
+        android:id="@+id/tvCountPosts"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="20"
+        android:textColor="@color/colorPrimary"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@id/tvPosts"
+        app:layout_constraintEnd_toEndOf="@+id/tvPosts"
+        app:layout_constraintStart_toStartOf="@id/tvPosts" />
+
+    <TextView
+        android:id="@+id/tvPosts"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@id/ivprofilePic"
+        app:layout_constraintBottom_toBottomOf="@id/ivprofilePic"
+        android:layout_margin="30dp"
+        android:text="Posts"/>
+
+    <TextView
+        android:id="@+id/tvCountFollowers"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="730"
+        android:textColor="@color/colorPrimary"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@id/tvFollowers"
+        app:layout_constraintEnd_toEndOf="@+id/tvFollowers"
+        app:layout_constraintStart_toStartOf="@id/tvFollowers" />
+
+    <TextView
+        android:id="@+id/tvFollowers"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@id/tvPosts"
+        app:layout_constraintEnd_toStartOf="@id/tvFollowing"
+        app:layout_constraintBottom_toBottomOf="@id/ivprofilePic"
+        android:layout_marginBottom="30dp"
+        android:text="Followers"/>
+
+    <TextView
+        android:id="@+id/tvCountFollowing"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="281"
+        android:textColor="@color/colorPrimary"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@id/tvFollowing"
+        app:layout_constraintEnd_toEndOf="@+id/tvFollowing"
+        app:layout_constraintStart_toStartOf="@id/tvFollowing" />
+
+    <TextView
+        android:id="@+id/tvFollowing"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="@id/btnLogout"
+        app:layout_constraintBottom_toBottomOf="@id/ivprofilePic"
+        android:layout_marginBottom="30dp"
+        android:text="Following"/>
+
+    <TextView
+        android:id="@+id/tvBio"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="10dp"
+        android:text="Columbia University"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ivprofilePic"
+        tools:text="Biography" />
+
+    <Button
+        android:id="@+id/btnEditProfile"
+        android:layout_width="0dp"
+        android:layout_height="30dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/btnLogout"
+        app:layout_constraintTop_toBottomOf="@id/tvBio"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginTop="10dp"
+        android:layout_weight="1"
+        android:text="Edit Profile"
+        android:background="@color/colorAccent"
+        />
+
     <Button
         android:id="@+id/btnLogout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/colorAccent"
+        android:layout_width="0dp"
+        android:layout_height="30dp"
+        android:background="#405DE6"
+        android:textColor="#ffffff"
         android:layout_weight="1"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginTop="10dp"
         android:text="Log out"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toEndOf="@id/btnEditProfile"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvBio"/>
 
     <FrameLayout
-        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintTop_toBottomOf="@id/btnLogout"
+        android:layout_marginTop="10dp"
+        app:layout_constraintTop_toBottomOf="@id/btnEditProfile"
         app:layout_constraintStart_toStartOf="parent"
         tools:context=".fragments.HomeFragment">
 
