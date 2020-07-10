@@ -42,7 +42,6 @@ public class ComposeFragment extends Fragment {
     public static final String TAG = "Compose Fragment";
 
     private EditText etDescription;
-    private Button btnCaptureImage;
     private ImageView ivPreview;
     private Button btnPost;
 
@@ -71,10 +70,10 @@ public class ComposeFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         etDescription = view.findViewById(R.id.etDescription);
-        ivPreview = view.findViewById(R.id.ivPreview);
 
-        btnCaptureImage = view.findViewById(R.id.btnCaptureImage);
-        btnCaptureImage.setOnClickListener(new View.OnClickListener() {
+        ivPreview = view.findViewById(R.id.ivPreview);
+        ivPreview.setImageDrawable(getResources().getDrawable(R.drawable.camera_shadow_fill));
+        ivPreview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 launchCamera(view);
@@ -82,7 +81,6 @@ public class ComposeFragment extends Fragment {
         });
 
         btnPost = view.findViewById(R.id.btnPost);
-        //queryPosts();
         btnPost.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
