@@ -10,7 +10,6 @@ import com.parse.ParseUser;
 
 import org.parceler.Parcel;
 
-import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Locale;

@@ -19,9 +19,7 @@ import com.example.simpleinstagram.LoginActivity;
 import com.example.simpleinstagram.Post;
 import com.example.simpleinstagram.PostsAdapter;
 import com.example.simpleinstagram.R;
-import com.example.simpleinstagram.SignupActivity;
 import com.parse.FindCallback;
-import com.parse.Parse;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
@@ -77,7 +75,13 @@ public class ProfileFragment extends Fragment {
         ParseUser.logOut();
         Intent intent = new Intent(getContext(), LoginActivity.class);
         startActivity(intent);
-        //finish();
+        finishActivity();
+    }
+
+    private void finishActivity() {
+        if (getActivity() != null) {
+            getActivity().finish();
+        }
     }
 
     private void queryPosts() {

@@ -1,6 +1,5 @@
 package com.example.simpleinstagram;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;

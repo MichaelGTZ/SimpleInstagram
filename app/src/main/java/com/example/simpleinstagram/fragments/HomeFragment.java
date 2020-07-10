@@ -21,8 +21,6 @@ import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
 
-import org.json.JSONArray;
-
 import java.util.ArrayList;
 import java.util.List;
 
