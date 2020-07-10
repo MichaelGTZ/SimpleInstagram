@@ -8,30 +8,62 @@
     android:orientation="vertical"
     tools:context=".MainActivity">
 
-    <RelativeLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/topBar"
         android:layout_width="match_parent"
         android:layout_height="65dp"
         android:gravity="center"
+        android:layout_margin="0dp"
+        android:padding="0dp"
         android:background="@color/colorAccent"
+        app:layout_constraintBottom_toTopOf="@id/flContainer"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
         <ImageView
+            android:id="@+id/addToStory"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentStart="true"
+            android:layout_centerInParent="true"
+            android:layout_marginStart="15dp"
+            android:src="@drawable/camera_black" />
+
+        <ImageView
             android:id="@+id/igLogo"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:scaleType="centerInside"
+            android:layout_height="55dp"
             android:layout_centerInParent="true"
             android:adjustViewBounds="true"
+            android:paddingBottom="5dp"
             android:src="@drawable/nav_logo_whiteout" />
 
+        <ImageView
+            android:id="@+id/directMessages"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:src="@drawable/ufi_new_direct"
+            android:layout_alignParentEnd="true"
+            android:layout_centerInParent="true"
+            android:layout_marginEnd="15dp"/>
+
         <View
-            android:layout_below="@id/igLogo"
+            android:id="@+id/bottomLine"
+            app:layout_constraintBottom_toBottomOf="parent"
             android:layout_width="match_parent"
             android:layout_height="1px"
-            android:background="#A9A9A9"/>
-    </RelativeLayout>
+            android:background="#A9A9A9" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <FrameLayout
         android:id="@+id/flContainer"
