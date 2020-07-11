@@ -54,6 +54,7 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
         private TextView tvCaption;
         private TextView tvUsername2;
         private TextView tvTimestamp;
+        private ImageView ivLike;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -63,6 +64,7 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
             tvCaption = itemView.findViewById(R.id.tvCaption);
             tvUsername2 = itemView.findViewById(R.id.tvUsername2);
             tvTimestamp = itemView.findViewById(R.id.tvTimestamp);
+            ivLike = itemView.findViewById(R.id.ivLike);
 
             itemView.setOnClickListener(this);
         }
