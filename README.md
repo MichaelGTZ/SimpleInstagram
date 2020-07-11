@@ -48,7 +48,7 @@ Here's a walkthrough of implemented user stories:
 
 [Demo Link](screenshots/SimpleIG_Demo.gif)
 
-[Demo of adding profile photo stretch story)()
+[Demo of adding profile photo stretch story)(screenshots/SimpleIG_ProfilePicDemo.gif)
 
 GIF created with [Kap](https://getkap.co/).
 
