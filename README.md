@@ -48,7 +48,7 @@ Here's a walkthrough of implemented user stories:
 
 [Demo Link](screenshots/SimpleIG_Demo.gif)
 
-[Demo of adding profile photo stretch story)(screenshots/SimpleIG_ProfilePicDemo.gif)
+[Demo of adding profile photo stretch story](screenshots/SimpleIG_ProfilePicDemo.gif)
 
 GIF created with [Kap](https://getkap.co/).
 
@@ -57,6 +57,7 @@ GIF created with [Kap](https://getkap.co/).
 List an 3rd party libraries, icons, graphics, or other assets you used in your app.
 
 - [Android Async Http Client](http://loopj.com/android-async-http/) - networking library
+- [Glide](https://github.com/bumptech/glide) - Image loading and caching library for Android
 
 
 ## Notes
