@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -157,6 +158,7 @@ public class ComposeFragment extends Fragment {
                 Log.i(TAG, "Post save was successful");
                 etDescription.setText("");
                 ivPreview.setImageResource(0);
+                getFragmentManager().beginTransaction().replace(R.id.flContainer, new HomeFragment()).commit();
             }
         });
     }
