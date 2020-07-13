@@ -21,7 +21,8 @@ The following **stretch** features are implemented:
 
 - [X] Style the login page to look like the real Instagram login page.
 - [X] Style the feed to look like the real Instagram feed.
-- [X] User should switch between different tabs - viewing all posts (feed view), capture (camera and photo gallery view) and profile tabs (posts made) using fragments and a Bottom Navigation View.
+- [ ] User should switch between different tabs - viewing all posts (feed view), capture (camera and photo gallery view) and profile tabs (posts made) using fragments and a Bottom Navigation View.
+    - All except photo gallery view are implemented.
 - [X] User can load more posts once he or she reaches the bottom of the feed using endless scrolling.
 - [X] Show the username and creation time for each post
 - [ ] After the user submits a new post, show an indeterminate progress bar while the post is being uploaded to Parse
@@ -47,6 +48,8 @@ Please list two areas of the assignment you'd like to **discuss further with you
 Here's a walkthrough of implemented user stories:
 
 [Demo Link](screenshots/SimpleIG_Demo.gif)
+
+[Demo of adding sign up ability from required features](screenshots/SimpleIG_SignupDemo.gif)
 
 [Demo of adding profile photo stretch story](screenshots/SimpleIG_ProfilePicDemo.gif)
 
